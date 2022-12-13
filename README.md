@@ -1,6 +1,6 @@
 # Football Fantasy
 
-# I'm hacked
+# You are hacked
 
 ## Getting started
 
