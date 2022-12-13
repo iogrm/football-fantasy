@@ -1,0 +1,3 @@
+// interface HttpErrorInterface {
+//   throw: () => void;
+// }

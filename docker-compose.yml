@@ -1,0 +1,45 @@
+# docker-compose.yml
+
+version: "3.9"
+services:
+  postgres:
+    image: postgres:14.5
+    restart: on-failure
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: "back_v1"
+    volumes:
+      - database-db:/var/lib/postgresql/v2/data
+
+  redis:
+    image: redis:7.0.2
+    restart: on-failure
+    ports:
+      - "6379:6379"
+
+  backend:
+    image: backend
+    restart: on-failure
+    environment:
+      PSQL_HOST: postgres
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "5000:5000"
+
+  frontend:
+    image: frontend
+    restart: on-failure
+    environment:
+      BACKEND_URL: backend
+    depends_on:
+      - backend
+    ports:
+      - "80:3000"
+
+volumes:
+  database-db:

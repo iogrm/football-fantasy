@@ -1,0 +1,9 @@
+.env
+node_modules
+dist
+
+graph.svg
+graph.png
+
+public/uploads/images/*/*.*
+!public/uploads/images/*/default.png

@@ -1,0 +1,3 @@
+interface AllComponents {
+  batchComponent: BatchComponentInterface;
+}
