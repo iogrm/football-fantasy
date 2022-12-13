@@ -1,6 +1,6 @@
 # Football Fantasy
 
-# You are hacked
+# You lost
 
 ## Getting started
 
