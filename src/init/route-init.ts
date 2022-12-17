@@ -1,11 +1,11 @@
 import express from "express";
-import { createPlayerRouter } from "../routes/players-routes";
-import { createAuthRouter } from "../routes/auth-routes";
-import { createTeamRouter } from "../routes/teams-routes";
-import { createWeekRouter } from "../routes/week-routes";
-import { createSocialRouter } from "../routes/social-routes";
-import { createUserRouter } from "../routes/user-routes";
-import { createVitrineRouter } from "../routes/vitrine-routes";
+import { createPlayerRouter } from "../player/player.route";
+import { createAuthRouter } from "../auth/auth.route";
+import { createTeamRouter } from "../team/team.route";
+import { createWeekRouter } from "../week/week.route";
+import { createSocialRouter } from "../follow/follow.route";
+import { createUserRouter } from "../user/user.route";
+import { createVitrineRouter } from "../vitrine/vitrine.route";
 
 export const initRouters = (controllers: AllControllers) => {
   const router = express.Router();

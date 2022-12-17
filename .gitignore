@@ -6,6 +6,7 @@ public/uploads/images/*/*.*
 !public/uploads/images/*/default.png
 
 .gitlab-ci.yml
-.gitignore
 .dockerignore
 .DS_store
+
+.gitignore

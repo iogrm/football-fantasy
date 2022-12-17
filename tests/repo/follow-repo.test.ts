@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize/types";
-import sequelizeConfig from "../../src/config/sequelize-config";
-import Follow from "../../src/models/follow";
-import FollowRepository from "../../src/repos/follow-repo";
-import UserRepository from "../../src/repos/user-repo";
+import sequelizeConfig from "../../src/config/sequelize.config";
+import Follow from "../../src/follow/follow.model";
+import FollowRepository from "../../src/follow/follow.repo";
+import UserRepository from "../../src/user/user.repo";
 
 let server: Sequelize | undefined;
 

@@ -1,7 +1,8 @@
+type GetVitrineType = { weekNum: number } & GetFollowType;
+
 interface VitrineServiceInterface {
   getFollowingVitrines: (
-    teamId: number,
-    weekNum: number
+    data: GetVitrineType
   ) => Promise<followingVitrinesType | NotFoundErrorType>;
 
   like: (

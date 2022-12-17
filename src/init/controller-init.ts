@@ -1,17 +1,17 @@
-import { PlayerController } from "../controllers/players-controllers";
-import { TeamController } from "../controllers/teams-controllers";
-import { AuthController } from "../controllers/auth-controllers";
-import { WeekController } from "../controllers/weeks-controllers";
-import { SocialController } from "../controllers/social-controllers";
-import { UserController } from "../controllers/user-controllers";
-import { VitrineController } from "../controllers/vitrine-controllers";
+import { PlayerController } from "../player/player.controller";
+import { TeamController } from "../team/team.controller";
+import { AuthController } from "../auth/auth.controller";
+import { WeekController } from "../week/week.controller";
+import { UserController } from "../user/user.controller";
+import { VitrineController } from "../vitrine/vitrine.controller";
+import { FollowController } from "../follow/follow.controller";
 
 export const initControllers = (deps: AllServisces): AllControllers => ({
   playerController: new PlayerController(deps.playerService),
   teamController: new TeamController(deps.teamService),
   authController: new AuthController(deps.authService),
   weekController: new WeekController(deps.weekService),
-  socialController: new SocialController(deps.followService),
+  socialController: new FollowController(deps.followService),
   userController: new UserController(deps.userService),
   vitrineController: new VitrineController(deps.vitrineService),
 });

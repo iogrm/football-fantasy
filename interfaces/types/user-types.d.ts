@@ -33,7 +33,20 @@ type ShortUserOutputType = {
   isFollowed: boolean;
 };
 
+type ShorterUserOutputType = {
+  id: number;
+  username: string;
+  firstname: string;
+  lastname: string;
+  age: number;
+  profileImage: string;
+};
+
 type FollowedUserOutputType = UserOutputType & { isFollowed: boolean };
+
+type ShortFollowedUserOutputType = ShorterUserOutputType & {
+  isFollowed: boolean;
+};
 
 type LongUserOutputType = FollowedUserOutputType & { score: number };
 

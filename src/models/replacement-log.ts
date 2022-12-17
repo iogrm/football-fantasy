@@ -7,9 +7,9 @@ import {
   Model,
   Sequelize,
 } from "sequelize";
-import Player from "./player";
-import Team from "./team";
-import Week from "./week";
+import Player from "../player/player.model";
+import Team from "../team/team.model";
+import Week from "../week/week.model";
 
 class ReplacementLog extends Model<
   InferAttributes<ReplacementLog>,

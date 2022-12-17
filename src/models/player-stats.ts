@@ -9,8 +9,8 @@ import {
   NonAttribute,
   Sequelize,
 } from "sequelize";
-import Player from "./player";
-import Week from "./week";
+import Player from "../player/player.model";
+import Week from "../week/week.model";
 
 class PlayerStats extends Model<
   InferAttributes<PlayerStats, { omit: "player" | "week" }>,

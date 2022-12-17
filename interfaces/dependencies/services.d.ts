@@ -5,6 +5,6 @@ interface AllServisces {
   userService: UserServiceInterface;
   weekService: WeekServiceInterface;
   followService: FollowServiceInterface;
-  refreshService: RefreshServiceInterface;
   vitrineService: VitrineServiceInterface;
+  batchService: BatchServiceInterface;
 }

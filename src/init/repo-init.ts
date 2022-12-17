@@ -1,15 +1,15 @@
 import * as redis from "redis";
 import ReplacementLog from "../models/replacement-log";
-import FollowRepository from "../repos/follow-repo";
-import LikeRepository from "../repos/like-repo";
-import PlayerRepository from "../repos/player-repo";
-import PlayerStatsRepository from "../repos/player-stats-repo";
-import RecrutmentRepository from "../repos/recrutment-repo";
-import { RedisRepo } from "../repos/redis-repo";
-import ReplacementLogRepository from "../repos/replacement-log-repo";
-import TeamRepository from "../repos/team-repo";
-import UserRepository from "../repos/user-repo";
-import WeekRepository from "../repos/week-repo";
+import FollowRepository from "../follow/follow.repo";
+import LikeRepository from "../vitrine/like.repo";
+import PlayerRepository from "../player/player.repo";
+import PlayerStatsRepository from "../repos/player-stats.repo";
+import RecrutmentRepository from "../repos/recrutment.repo";
+import { RedisRepo } from "../repos/redis.repo";
+import ReplacementLogRepository from "../repos/replacement-log.repo";
+import TeamRepository from "../team/team.repo";
+import UserRepository from "../user/user.repo";
+import WeekRepository from "../week/week.repo";
 
 export const initRepositories = (deps: {
   models: AllModels;

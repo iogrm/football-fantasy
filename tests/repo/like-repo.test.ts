@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize/types";
-import sequelizeConfig from "../../src/config/sequelize-config";
-import Like from "../../src/models/like";
-import LikeRepository from "../../src/repos/like-repo";
-import UserRepository from "../../src/repos/user-repo";
-import WeekRepository from "../../src/repos/week-repo";
+import sequelizeConfig from "../../src/config/sequelize.config";
+import Like from "../../src/vitrine/like.model";
+import LikeRepository from "../../src/vitrine/like.repo";
+import UserRepository from "../../src/user/user.repo";
+import WeekRepository from "../../src/week/week.repo";
 
 let server: Sequelize | undefined;
 

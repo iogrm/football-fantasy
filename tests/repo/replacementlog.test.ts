@@ -1,13 +1,9 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize/types";
-import sequelizeConfig from "../../src/config/sequelize-config";
 import ReplacementLog from "../../src/models/replacement-log";
-import ReplacementLogRepository from "../../src/repos/replacement-log-repo";
-import WeekRepository from "../../src/repos/week-repo";
-import UserRepository from "../../src/repos/user-repo";
-import PlayerRepository from "../../src/repos/player-repo";
+import { deployInfrastructure } from "../../src/config/infrastructure.config";
+import PlayerService from "../../src/player/player.service";
 import { initDomain } from "../../src/init/domain-init";
-import { deployInfrastructure } from "../../src/config/infrastructure-config";
 
 let server: Sequelize | undefined;
 
@@ -17,7 +13,8 @@ let closeTestServer: Function;
 let replacementLogRepo: ReplacementLogRepositoryInterface;
 let weekRepo: WeekRepositoryInterface;
 let userRepo: UserRepositoryInterface;
-let refreshService: RefreshServiceInterface;
+let batchService: BatchServiceInterface;
+let playerService: PlayerServiceInterface;
 let teamService: TeamServiceInterface;
 let user: UserOutputType;
 
@@ -149,18 +146,19 @@ describe("Replacement Log Repo Test", () => {
     closeTestServer = async () => await server?.close();
 
     const { sequelize, redis } = await deployInfrastructure("test");
-    const { repos, services } = initDomain(sequelize, redis);
+    
+    const services  = initDomain(sequelize, redis);
 
     await expect(configTestServer()).resolves.not.toThrowError();
 
     replacementLogRepo = repos.replacementLogRepo;
     weekRepo = repos.weekRepo;
     userRepo = repos.userRepo;
-    refreshService = services.refreshService;
+    batchService = services.batchService;
     teamService = services.teamService;
     await weekRepo.refreshWeeks(weeks);
     user = await userRepo.create(usersInfo[0]);
-    await refreshService.refreshPlayers(players);
+    await PlayerService..(players);
     await teamService.getTeamByUserId(user.id);
     await teamService.addPlayer(user.id, players[0].id, players[0].positionNum);
     await teamService.addPlayer(user.id, players[1].id, players[1].positionNum);

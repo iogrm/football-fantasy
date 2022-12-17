@@ -17,4 +17,13 @@ interface TeamServiceInterface {
     playerId: number,
     positionNum: number
   ) => Promise<TeamOutputType | null | NotFoundErrorType | BadRequestErrorType>;
+
+  getTeamRecordes: (
+    weekId: number,
+    teamId: number
+  ) => Promise<PositionRecordesType>;
+
+  getFeildTeamById: (id: number) => Promise<TeamOutputType | null>;
+
+  getFeildTeamByUserId: (userId: number) => Promise<TeamOutputType | null>;
 }

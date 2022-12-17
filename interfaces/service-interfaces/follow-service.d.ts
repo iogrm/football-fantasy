@@ -15,4 +15,12 @@ interface FollowServiceInterface {
   getFollowings: (
     data: GetFollowType
   ) => Promise<PaginatedOutputType<ShortUserOutputType>>;
+  checkIsFollowed: (
+    followerId: number,
+    followingId: number
+  ) => Promise<boolean>;
+  getFollowedUsers: (
+    users: UserOutputType[],
+    userId: number
+  ) => Promise<ShortUserOutputType[]>;
 }

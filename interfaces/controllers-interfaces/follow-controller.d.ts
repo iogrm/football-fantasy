@@ -1,4 +1,4 @@
-interface SocialControllerInterface {
+interface FollowControllerInterface {
   follow: import("express").RequestHandler;
   unfollow: import("express").RequestHandler;
   getFollowers: import("express").RequestHandler;

@@ -1,5 +1,4 @@
-import BatchComponent from "../component/batch-component";
+// import BatchComponent from "../batch/batch.service";
 
-export const initComponents = (deps: AllServisces): AllComponents => ({
-  batchComponent: new BatchComponent(deps),
-});
+// export const initComponents = (deps: AllServisces): AllComponents => ({
+// });

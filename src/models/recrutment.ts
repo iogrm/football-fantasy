@@ -9,8 +9,8 @@ import {
   NonAttribute,
   Sequelize,
 } from "sequelize";
-import Player from "./player";
-import Team from "./team";
+import Player from "../player/player.model";
+import Team from "../team/team.model";
 
 class Recrutment extends Model<
   InferAttributes<Recrutment, { omit: "player" | "team" }>,

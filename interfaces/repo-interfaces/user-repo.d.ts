@@ -10,11 +10,11 @@ interface UserRepositoryInterface {
 
   getUserById: (id: number) => Promise<UserOutputType | null>;
 
+  getUsersByIds: (ids: number[]) => Promise<UserOutputType[]>;
+
   getUserByUsername: (username: string) => Promise<UserOutputType | null>;
 
   getUserByEmail: (email: string) => Promise<UserOutputType | null>;
-
-  getUsersByids: (ids: number[]) => Promise<UserOutputType[]>;
 
   getPaginatedUsers: (data: {
     limit: number;

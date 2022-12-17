@@ -4,7 +4,7 @@ interface AllControllers {
   userController: UserControllerInterface;
   weekController: WeekControllerInterface;
   teamController: TeamControllerInterface;
-  socialController: SocialControllerInterface;
+  socialController: FollowControllerInterface;
   vitrineController: VitrineControllerInterface;
   userController: UserControllerInterface;
 }
