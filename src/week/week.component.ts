@@ -1,8 +1,7 @@
-import { Router } from "express";
-import WeekRepository from "./week.repo";
-import { createWeekRouter } from "./week.route";
-import WeekService from "./week.service";
-import { WeekController } from "./week.controller";
+import { Router } from 'express';
+import { WeekController } from './week.controller';
+import { createWeekRouter } from './week.route';
+import WeekService from './week.service';
 
 export const weekInit = (
   weekRepository: WeekRepositoryInterface,
@@ -10,6 +9,6 @@ export const weekInit = (
 ): WeekServiceInterface => {
   const weekService = new WeekService(weekRepository);
   const weekController = new WeekController(weekService);
-  router.use("/week", createWeekRouter(weekController));
+  router.use('/week', createWeekRouter(weekController));
   return weekService;
 };

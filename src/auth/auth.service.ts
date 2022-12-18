@@ -1,9 +1,9 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { sendMail, setText } from "../utils/email.service";
-import { NotFoundError } from "../errors/not-found-error";
-import { BadRequestError } from "../errors/bad-request-error";
-import { DuplicateError } from "../errors/duplicate-error";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { sendMail, setText } from '../util/email.service';
+import { NotFoundError } from '../error/not-found-error';
+import { BadRequestError } from '../error/bad-request-error';
+import { DuplicateError } from '../error/duplicate-error';
 
 type CreatingUserType = CreateUserInputType & { code: string };
 
@@ -29,7 +29,7 @@ class AuthService implements AuthServiceInterface {
       };
       return data;
     } catch (err) {
-      return new NotFoundError("Username");
+      return new NotFoundError('Username');
     }
   };
 
@@ -38,9 +38,9 @@ class AuthService implements AuthServiceInterface {
     email,
   }: CreateUserInputType): Promise<true | DuplicateErrorType> => {
     const userWithUsername = await this.userService.getUserByUsername(username);
-    if (userWithUsername) return new DuplicateError("Username");
+    if (userWithUsername) return new DuplicateError('Username');
     const userWithEmail = await this.userService.getUserByEmail(email);
-    if (userWithEmail) return new DuplicateError("Email");
+    if (userWithEmail) return new DuplicateError('Email');
     return true;
   };
 
@@ -62,7 +62,7 @@ class AuthService implements AuthServiceInterface {
     };
 
     sendMail(data.email, {
-      subject: "High5 Confirmation",
+      subject: 'High5 Confirmation',
       text: setText(data.firstname, confirmation_code),
     });
 
@@ -80,20 +80,20 @@ class AuthService implements AuthServiceInterface {
     );
 
     if (registerig_user instanceof NotFoundError)
-      return new NotFoundError("Username");
+      return new NotFoundError('Username');
 
     const code = data.code.toString();
 
     if (registerig_user.code !== code)
-      return new BadRequestError("InvalidValidationCode");
+      return new BadRequestError('InvalidValidationCode');
 
     await this.isValidRegisterInput(registerig_user);
 
     const user = await this.userService.createUser(registerig_user);
 
     let jwtPayload: JwtPayloadType = { userId: user.id };
-    const token = jwt.sign(jwtPayload, process.env.SUPER_SECRET_KEY ?? "", {
-      expiresIn: "12h",
+    const token = jwt.sign(jwtPayload, process.env.SUPER_SECRET_KEY ?? '', {
+      expiresIn: '12h',
     });
     return token;
   };
@@ -104,15 +104,15 @@ class AuthService implements AuthServiceInterface {
   ): Promise<string | BadRequestErrorType | NotFoundErrorType> => {
     const user = await this.userService.getAuthInfoByUsername(username);
 
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
 
-    const isPasswordValid = await bcrypt.compare(password, user.password ?? "");
+    const isPasswordValid = await bcrypt.compare(password, user.password ?? '');
 
-    if (!isPasswordValid) return new BadRequestError("InvalidPassword");
+    if (!isPasswordValid) return new BadRequestError('InvalidPassword');
 
     let jwtPayload: JwtPayloadType = { userId: user.id };
-    const token = jwt.sign(jwtPayload, process.env.SUPER_SECRET_KEY ?? "", {
-      expiresIn: "12h",
+    const token = jwt.sign(jwtPayload, process.env.SUPER_SECRET_KEY ?? '', {
+      expiresIn: '12h',
     });
 
     return token;
@@ -123,7 +123,7 @@ class AuthService implements AuthServiceInterface {
   ): Promise<UserOutputType | NotFoundErrorType> => {
     const user = await this.userService.getUserById(userId);
 
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
 
     return user;
   };

@@ -1,7 +1,7 @@
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize/types";
-import sequelizeConfig from "../../src/config/sequelize.config";
-import Follow, { initFollowDB } from "../../src/follow/follow.model";
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize/types';
+import sequelizeConfig from '../../src/config/sequelize.config';
+import Follow, { initFollowDB } from '../../src/sequelize/model/follow.model';
 
 let server: Sequelize | undefined;
 
@@ -11,11 +11,11 @@ let closeTestServer: Function;
 
 let followModel: FollowModelType;
 
-describe("Follow Model Test", () => {
+describe('Follow Model Test', () => {
   beforeAll(async () => {
     dotenv.config();
 
-    const sequelize = await sequelizeConfig("test");
+    const sequelize = await sequelizeConfig('test');
     server = sequelize.server;
     models = sequelize.models;
     configTestServer = async () => server;
@@ -28,7 +28,7 @@ describe("Follow Model Test", () => {
     await Follow?.destroy({ where: {} });
   });
 
-  test("follow a user for first time", async () => {
+  test('follow a user for first time', async () => {
     const rec = {
       followerId: 1,
       followingId: 2,

@@ -1,9 +1,9 @@
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize/types";
-import sequelizeConfig from "../../src/config/sequelize.config";
-import ReplacementLog, {
-  initReplacementLogDB,
-} from "../../src/models/replacement-log";
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize/types';
+import sequelizeConfig from '../../src/config/sequelize.config';
+import Replacement, {
+  initReplacementDB,
+} from '../../src/sequelize/model/replacement.model';
 
 let server: Sequelize | undefined;
 
@@ -11,26 +11,26 @@ let models: AllModels;
 let configTestServer;
 let closeTestServer: Function;
 
-let replacementLogModel: ReplacementLogModelType;
+let replacementLogModel: ReplacementModelType;
 
-describe("Replacement Log Model Test", () => {
+describe('Replacement Log Model Test', () => {
   beforeAll(async () => {
     dotenv.config();
 
-    const sequelize = await sequelizeConfig("test");
+    const sequelize = await sequelizeConfig('test');
     server = sequelize.server;
     models = sequelize.models;
     configTestServer = async () => server;
     closeTestServer = async () => await server?.close();
-    (replacementLogModel = initReplacementLogDB(server)),
+    (replacementLogModel = initReplacementDB(server)),
       await expect(configTestServer()).resolves.not.toThrowError();
   });
 
   afterEach(async () => {
-    await ReplacementLog?.destroy({ where: {} });
+    await Replacement?.destroy({ where: {} });
   });
 
-  test("create in replacement Log Model", async () => {
+  test('create in replacement Log Model', async () => {
     const rec = {
       weekId: 1,
       teamId: 2,

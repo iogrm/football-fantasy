@@ -1,8 +1,8 @@
 const PlayerRoles = [
-  "Goalkeepers",
-  "Defenders",
-  "Midfielders",
-  "Forwards",
+  'Goalkeepers',
+  'Defenders',
+  'Midfielders',
+  'Forwards',
 ] as const;
 
 type PlayerRolesArrayType = typeof PlayerRoles;
@@ -10,7 +10,7 @@ type PlayerRolesArrayType = typeof PlayerRoles;
 type PlayerRolesType = PlayerRolesArrayType[number];
 
 type GetPlayersType = GetPaginatedType & {
-  role: PlayerRolesType | "All";
+  role: PlayerRolesType | 'All';
   search: string;
 };
 
@@ -29,7 +29,7 @@ type CreatePlayerInputType = {
 };
 
 type PlayerOutputType = PlayerOutputTypeNoStats & {
-  playerStats: PlayerStatsOutputType;
+  playerStats: PlayerStatusOutputType;
 };
 
 type PlayerOutputTypeNoStats = {
@@ -48,5 +48,5 @@ type FullPlayerOutputType = {
   webname: string;
   club: string;
   role: PlayerRolesType;
-  playerStats: PlayerStatsOutputType[];
+  playerStats: PlayerStatusOutputType[];
 };

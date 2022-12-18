@@ -1,20 +1,20 @@
-import dotenv from "dotenv";
-import express from "express";
-import CustomExpress from "./config/express.config";
-import { deployInfrastructure } from "./config/infrastructure.config";
-import { initDomain } from "./init/domain-init";
+import dotenv from 'dotenv';
+import express from 'express';
+import ConfiguredExpress from './config/express.config';
+import { initRepo } from './init/repo.init';
+import { initDomain } from './init/domain.init';
 
 const run = async (envirenment: environment) => {
   dotenv.config();
 
   const router = express.Router();
-  const { sequelize, redis } = await deployInfrastructure(envirenment);
-  const services = initDomain(sequelize.models, redis, router);
-  const app = new CustomExpress(router);
+  const repos = await initRepo(envirenment);
+  const services = initDomain(repos, router);
+  const app = new ConfiguredExpress(router);
   app.listen();
   services.batchService.schedule();
 };
 
-run("production").catch((err) =>
-  console.log("Something bad has happend in the index.ts ", err)
+run('production').catch((err) =>
+  console.log('Something bad has happend in the index.ts ', err)
 );

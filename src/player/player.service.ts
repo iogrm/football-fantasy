@@ -1,5 +1,5 @@
-import { NotFoundError } from "../errors/not-found-error";
-import PlayerDao from "./player.dao";
+import { NotFoundError } from '../error/not-found-error';
+import PlayerDao from '../dao/player.dao';
 
 class PlayerService implements PlayerServiceInterface {
   constructor(
@@ -18,13 +18,13 @@ class PlayerService implements PlayerServiceInterface {
     let players: PlayerOutputType[] = (await this.playerRepo.getAllPlayers())
       .filter(
         (x) =>
-          (role === "All" ? true : role === x.role) &&
+          (role === 'All' ? true : role === x.role) &&
           `${x.firstName} ${x.secondName}`.includes(search)
       )
       .sort(
         (x, y) =>
-          (order === "ASC" ? -1 : 1) *
-          (sortBy === "price"
+          (order === 'ASC' ? -1 : 1) *
+          (sortBy === 'price'
             ? y.playerStats.price - x.playerStats.price
             : y.playerStats.score - x.playerStats.score)
       );
@@ -39,7 +39,7 @@ class PlayerService implements PlayerServiceInterface {
     playerId: number
   ): Promise<PlayerOutputType | NotFoundErrorType> => {
     const player = await this.playerRepo.getPlayerById(playerId);
-    if (!player) return new NotFoundError("Player");
+    if (!player) return new NotFoundError('Player');
 
     return player;
   };

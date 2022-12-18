@@ -1,11 +1,11 @@
 interface AllModels {
   recrutmentModel: RecrutmentModelType;
-  playerStatsModel: PlayerStatsModelType;
+  playerStatsModel: PlayerStatusModelType;
   playerModel: PlayerModelType;
   userModel: UserModelType;
   teamModel: TeamModelType;
   weekModel: WeekModelType;
   followModel: FollowModelType;
-  replacementLogModel: ReplacementLogModelType;
+  replacementModel: ReplacementModelType;
   likeModel: LikeModelType;
 }

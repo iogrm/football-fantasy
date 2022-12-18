@@ -1,11 +1,18 @@
-type PlayerStatsModelType =
-  typeof import("../../src/models/player-stats").default;
-type RecrutmentModelType = typeof import("../../src/models/recrutment").default;
-type PlayerModelType = typeof import("../../src/player/player.model").default;
-type UserModelType = typeof import("../../src/user/user.model").default;
-type WeekModelType = typeof import("../../src/week/week.model").default;
-type TeamModelType = typeof import("../../src/team/team.model").default;
-type FollowModelType = typeof import("../../src/follow/follow.model").default;
-type ReplacementLogModelType =
-  typeof import("../../src/models/replacement-log").default;
-type LikeModelType = typeof import("../../src/vitrine/like.model").default;
+type PlayerStatusModelType =
+  typeof import('../../src/sequelize/model/player-stats.model').default;
+type RecrutmentModelType =
+  typeof import('../../src/sequelize/model/recrutment.model').default;
+type PlayerModelType =
+  typeof import('../../src/sequelize/model/player.model').default;
+type UserModelType =
+  typeof import('../../src/sequelize/model/user.model').default;
+type WeekModelType =
+  typeof import('../../src/sequelize/model/week.model').default;
+type TeamModelType =
+  typeof import('../../src/sequelize/model/team.model').default;
+type FollowModelType =
+  typeof import('../../src/sequelize/model/follow.model').default;
+type ReplacementModelType =
+  typeof import('../../src/sequelize/model/replacement.model').default;
+type LikeModelType =
+  typeof import('../../src/sequelize/model/like.model').default;

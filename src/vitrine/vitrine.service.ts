@@ -1,5 +1,5 @@
-import { NotFoundError } from "../errors/not-found-error";
-import UserDto from "../user/user.dto";
+import { NotFoundError } from '../error/not-found-error';
+import UserDto from '../user/user.dto';
 
 class VitrineService implements VitrineServiceInterface {
   constructor(
@@ -15,7 +15,7 @@ class VitrineService implements VitrineServiceInterface {
     userId: number
   ): Promise<LongUserOutputType | NotFoundErrorType> => {
     const user = await this.userSerivce.getUserById(userId);
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
 
     let isFollowed = await this.followService.checkIsFollowed(
       userId,
@@ -40,7 +40,7 @@ class VitrineService implements VitrineServiceInterface {
     });
 
     const week = await this.weekService.getWeekByNumber(weekNum);
-    if (!week) return new NotFoundError("Week");
+    if (!week) return new NotFoundError('Week');
 
     let vitrines: followingVitrinesType = [];
     for (let f = 0; f < followings.count; f++) {
@@ -64,7 +64,7 @@ class VitrineService implements VitrineServiceInterface {
     weekId: number
   ): Promise<likeType | NotFoundErrorType> => {
     const week = await this.weekService.getWeekById(weekId);
-    if (!week) return new NotFoundError("Week");
+    if (!week) return new NotFoundError('Week');
     const record = {
       weekId: week.id,
       likerId,
@@ -80,7 +80,7 @@ class VitrineService implements VitrineServiceInterface {
     weekId: number
   ): Promise<boolean | NotFoundErrorType> => {
     const week = await this.weekService.getWeekById(weekId);
-    if (!week) return new NotFoundError("Week");
+    if (!week) return new NotFoundError('Week');
     const record = {
       weekId: week.id,
       likerId,
@@ -95,12 +95,12 @@ class VitrineService implements VitrineServiceInterface {
     userId: number
   ): Promise<vitrineType | NotFoundErrorType> => {
     const team = await this.teamService.getTeamByUserId(userId);
-    if (!team) return new NotFoundError("Team");
+    if (!team) return new NotFoundError('Team');
 
     const user: UserOutputType | null = await this.userSerivce.getUserById(
       userId
     );
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
 
     const records: PositionRecordesType =
       await this.teamService.getTeamRecordes(week.id, team.id);
@@ -111,7 +111,7 @@ class VitrineService implements VitrineServiceInterface {
 
   getScore = async (userId: number): Promise<number | NotFoundErrorType> => {
     const team = await this.teamService.getFeildTeamByUserId(userId);
-    if (!team) return new NotFoundError("Team");
+    if (!team) return new NotFoundError('Team');
     let scores = 0;
     team.players.map((player) => (scores += player.playerStats.score));
     return scores;

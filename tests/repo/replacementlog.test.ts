@@ -1,16 +1,16 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize/types";
-import ReplacementLog from "../../src/models/replacement-log";
-import { deployInfrastructure } from "../../src/config/infrastructure.config";
+import Replacement from "../../src/sequelize/model/replacement.model";
+import { initRepo } from "../../src/init/repo.init";
 import PlayerService from "../../src/player/player.service";
-import { initDomain } from "../../src/init/domain-init";
+import { initDomain } from "../../src/init/domain.init";
 
 let server: Sequelize | undefined;
 
 let configTestServer;
 let closeTestServer: Function;
 
-let replacementLogRepo: ReplacementLogRepositoryInterface;
+let replacementLogRepo: ReplacementRepositoryInterface;
 let weekRepo: WeekRepositoryInterface;
 let userRepo: UserRepositoryInterface;
 let batchService: BatchServiceInterface;
@@ -145,7 +145,7 @@ describe("Replacement Log Repo Test", () => {
     configTestServer = async () => server;
     closeTestServer = async () => await server?.close();
 
-    const { sequelize, redis } = await deployInfrastructure("test");
+    const { sequelize, redis } = await initRepo("test");
     
     const services  = initDomain(sequelize, redis);
 
@@ -167,7 +167,7 @@ describe("Replacement Log Repo Test", () => {
   });
 
   afterEach(async () => {
-    await ReplacementLog?.destroy({ where: {} });
+    await Replacement?.destroy({ where: {} });
   });
 
   test("recode very first log ", async () => {

@@ -1,7 +1,7 @@
-import { RequestHandler } from "express";
-import { z } from "zod";
-import { handleError } from "../errors/error-hendler";
-import { HttpError } from "../errors/http-error";
+import { RequestHandler } from 'express';
+import { z } from 'zod';
+import { handleError } from '../error/error-hendler';
+import { HttpError } from '../error/http-error';
 
 export class AuthController implements AuthControllerInterface {
   constructor(private authService: AuthServiceInterface) {}
@@ -14,7 +14,7 @@ export class AuthController implements AuthControllerInterface {
           firstname: z.string(),
           lastname: z.string(),
           email: z.string().email(),
-          country: z.string().default("iran"),
+          country: z.string().default('iran'),
           password: z.string().min(6),
           birthday: z.string().transform((x) => new Date(x)),
         })

@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { FollowController } from "./follow.controller";
-import FollowRepository from "./follow.repo";
-import { createSocialRouter } from "./follow.route";
-import FollowService from "./follow.service";
+import { Router } from 'express';
+import { FollowController } from './follow.controller';
+import FollowRepository from '../sequelize/repo/follow.repo';
+import { createSocialRouter } from './follow.route';
+import FollowService from './follow.service';
 
 export const followInit = (
   followRepo: FollowRepositoryInterface,
@@ -11,6 +11,6 @@ export const followInit = (
 ): FollowService => {
   const followService = new FollowService(followRepo, userService);
   const followController = new FollowController(followService);
-  router.use("/social", createSocialRouter(followController));
+  router.use('/social', createSocialRouter(followController));
   return followService;
 };

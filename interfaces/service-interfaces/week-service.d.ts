@@ -1,6 +1,10 @@
 interface WeekServiceInterface {
-  getCurrentWeek: () => Promise<WeekOutputType>;
+  getWeek: (
+    condition: WeekCondition
+  ) => Promise<WeekOutputType | NotFoundErrorType>;
   refreshWeeks: (datas: CreateWeekInputType[]) => Promise<WeekOutputType[]>;
-  getWeekByNumber: (weekNum: number) => Promise<WeekOutputType>;
-  getWeekById: (id: number) => Promise<WeekOutputType>;
+  getWeekByNumber: (
+    weekNum: number
+  ) => Promise<WeekOutputType | NotFoundErrorType>;
+  getWeekById: (id: number) => Promise<WeekOutputType | NotFoundErrorType>;
 }

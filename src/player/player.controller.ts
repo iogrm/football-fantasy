@@ -1,16 +1,16 @@
-import { RequestHandler } from "express";
-import { z } from "zod";
-import { handleError } from "../errors/error-hendler";
-import { HttpError } from "../errors/http-error";
+import { RequestHandler } from 'express';
+import { z } from 'zod';
+import { handleError } from '../error/error-hendler';
+import { HttpError } from '../error/http-error';
 
 const PlayerRoles: PlayerRolesArrayType = [
-  "Goalkeepers",
-  "Defenders",
-  "Midfielders",
-  "Forwards",
+  'Goalkeepers',
+  'Defenders',
+  'Midfielders',
+  'Forwards',
 ];
 
-export const playerFilter = [...PlayerRoles, "All"] as const;
+export const playerFilter = [...PlayerRoles, 'All'] as const;
 
 export class PlayerController implements PlayerControllerInterface {
   constructor(private playerService: PlayerServiceInterface) {}
@@ -19,12 +19,12 @@ export class PlayerController implements PlayerControllerInterface {
     try {
       const inputs = z
         .object({
-          num: z.string().regex(/^\d+$/).default("20").transform(Number),
-          page: z.string().regex(/^\d+$/).default("1").transform(Number),
-          search: z.string().default(""),
-          role: z.enum(playerFilter).default("All"),
-          order: z.string().default("DESC"),
-          sortBy: z.string().default("price"),
+          num: z.string().regex(/^\d+$/).default('20').transform(Number),
+          page: z.string().regex(/^\d+$/).default('1').transform(Number),
+          search: z.string().default(''),
+          role: z.enum(playerFilter).default('All'),
+          order: z.string().default('DESC'),
+          sortBy: z.string().default('price'),
         })
         .parse(req.query);
 

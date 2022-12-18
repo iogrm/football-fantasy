@@ -1,6 +1,6 @@
-import { TimeoutError } from "../src/errors/network-error";
-import { weeksDto, playersDto } from "./fpl-dto";
-import { fetchFplFacade } from "./fpl-facade";
+import { TimeoutError } from '../src/error/network-error';
+import { weeksDto, playersDto } from './fpl-dto';
+import { fetchFplFacade } from './fpl-facade';
 
 export const fetchPremireLeague = async (): Promise<
   TimeoutError | freshDBInputType

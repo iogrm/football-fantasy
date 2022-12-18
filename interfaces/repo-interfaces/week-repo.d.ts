@@ -7,7 +7,7 @@ interface WeekRepositoryInterface {
 
   getPreviousWeek: () => Promise<WeekOutputType>;
 
-  getWeekByNumber: (weekNum: number) => Promise<WeekOutputType>;
+  getWeekByNumber: (num: number) => Promise<WeekOutputType | NotFoundErrorType>;
 
-  getWeekById: (id: number) => Promise<WeekOutputType>;
+  getWeekById: (id: number) => Promise<WeekOutputType | NotFoundErrorType>;
 }

@@ -1,4 +1,4 @@
-type replacementLogType = {
+type replacementType = {
   weekId: number;
   teamId: number;
   oldPlayerId: number;
@@ -6,4 +6,4 @@ type replacementLogType = {
   position: number;
 };
 
-type PositionRecordesType = Array<replacementLogType>;
+type PositionRecordesType = Array<replacementType>;

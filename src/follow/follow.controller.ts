@@ -1,8 +1,8 @@
 // import HttpError from "../errors/http-error";
-import { RequestHandler } from "express";
-import { z } from "zod";
-import { handleError } from "../errors/error-hendler";
-import { HttpError } from "../errors/http-error";
+import { RequestHandler } from 'express';
+import { z } from 'zod';
+import { handleError } from '../error/error-hendler';
+import { HttpError } from '../error/http-error';
 
 export class FollowController implements FollowControllerInterface {
   constructor(private followService: FollowServiceInterface) {}
@@ -10,8 +10,8 @@ export class FollowController implements FollowControllerInterface {
   getFollowers: RequestHandler = async (req, res, next) => {
     const { num, page } = z
       .object({
-        num: z.string().regex(/^\d+$/).default("20").transform(Number),
-        page: z.string().regex(/^\d+$/).default("1").transform(Number),
+        num: z.string().regex(/^\d+$/).default('20').transform(Number),
+        page: z.string().regex(/^\d+$/).default('1').transform(Number),
       })
       .parse(req.query);
 
@@ -33,8 +33,8 @@ export class FollowController implements FollowControllerInterface {
     try {
       const { num, page } = z
         .object({
-          num: z.string().regex(/^\d+$/).default("20").transform(Number),
-          page: z.string().regex(/^\d+$/).default("1").transform(Number),
+          num: z.string().regex(/^\d+$/).default('20').transform(Number),
+          page: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.query);
 
@@ -55,7 +55,7 @@ export class FollowController implements FollowControllerInterface {
     try {
       const { userId } = z
         .object({
-          userId: z.string().regex(/^\d+$/).default("1").transform(Number),
+          userId: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.params);
 
@@ -74,7 +74,7 @@ export class FollowController implements FollowControllerInterface {
     try {
       const { userId } = z
         .object({
-          userId: z.string().regex(/^\d+$/).default("1").transform(Number),
+          userId: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.params);
 

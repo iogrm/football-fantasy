@@ -1,7 +1,7 @@
-import { RequestHandler } from "express";
-import { z } from "zod";
-import { handleError } from "../errors/error-hendler";
-import { HttpError } from "../errors/http-error";
+import { RequestHandler } from 'express';
+import { z } from 'zod';
+import { handleError } from '../error/error-hendler';
+import { HttpError } from '../error/http-error';
 
 export class UserController implements UserControllerInterface {
   constructor(private userService: UserServiceInterface) {}
@@ -10,7 +10,7 @@ export class UserController implements UserControllerInterface {
     try {
       const { userId } = z
         .object({
-          userId: z.string().regex(/^\d+$/).default("1").transform(Number),
+          userId: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.params);
 
@@ -25,13 +25,13 @@ export class UserController implements UserControllerInterface {
 
   getPaginatedUsers: RequestHandler = async (req, res, next) => {
     try {
-      console.log("sssss");
+      console.log('sssss');
 
       const { search, page, num } = z
         .object({
-          num: z.string().regex(/^\d+$/).default("20").transform(Number),
-          page: z.string().regex(/^\d+$/).default("1").transform(Number),
-          search: z.string().default(""),
+          num: z.string().regex(/^\d+$/).default('20').transform(Number),
+          page: z.string().regex(/^\d+$/).default('1').transform(Number),
+          search: z.string().default(''),
         })
         .parse(req.query);
 

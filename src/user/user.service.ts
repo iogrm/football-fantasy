@@ -1,5 +1,5 @@
-import UserDto from "./user.dto";
-import { NotFoundError } from "../errors/not-found-error";
+import UserDto from './user.dto';
+import { NotFoundError } from '../error/not-found-error';
 
 class UserService implements UserServiceInterface {
   constructor(private userRepo: UserRepositoryInterface) {}
@@ -9,7 +9,7 @@ class UserService implements UserServiceInterface {
     userId: number
   ): Promise<UserOutputType | NotFoundErrorType> => {
     const user = await this.userRepo.getUserById(userId);
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
 
     return user;
   };
@@ -44,10 +44,10 @@ class UserService implements UserServiceInterface {
     profileImage: string
   ): Promise<ShortUserOutputType | NotFoundErrorType> => {
     let user = await this.userRepo.getUserById(userId);
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
     await this.userRepo.update(userId, { profileImage: profileImage });
     user = await this.userRepo.getUserById(userId);
-    if (!user) return new NotFoundError("User");
+    if (!user) return new NotFoundError('User');
     let followedUser = UserDto.convertToFollowedUserOutput(user, false);
 
     return UserDto.convertToShortUserOutput(followedUser);

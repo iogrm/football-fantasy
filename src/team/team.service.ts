@@ -1,6 +1,6 @@
-import { BadRequestError } from "../errors/bad-request-error";
-import { NotFoundError } from "../errors/not-found-error";
-import { xor } from "../utils/operates";
+import { BadRequestError } from '../error/bad-request-error';
+import { NotFoundError } from '../error/not-found-error';
+import { xor } from '../util/operates';
 
 const MAX_CREDIT = 1000;
 
@@ -8,7 +8,7 @@ class TeamService implements TeamServiceInterface {
   constructor(
     private teamRepo: TeamRepositoryInterface,
     private recrutmentRepo: RecrutmentRepositoryInterface,
-    private replacementLogRepo: ReplacementLogRepositoryInterface,
+    private replacementLogRepo: ReplacementRepositoryInterface,
     private playerService: PlayerServiceInterface,
     private weekService: WeekServiceInterface
   ) {}
@@ -24,16 +24,16 @@ class TeamService implements TeamServiceInterface {
     TeamOutputType | null | NotFoundErrorType | BadRequestErrorType
   > => {
     const team = await this.teamRepo.getTeamByUserId(userId);
-    if (!team) return new NotFoundError("Team");
+    if (!team) return new NotFoundError('Team');
 
     const player = team.players.find((p) => {
       return p.positionNum === positionNum;
     });
 
-    if (!player) return new NotFoundError("Player");
+    if (!player) return new NotFoundError('Player');
 
     if (team.credit + player.playerStats.price > MAX_CREDIT)
-      return new BadRequestError("LowCredit");
+      return new BadRequestError('LowCredit');
 
     await this.teamRepo.incrementTeamCredit(team.id, player.playerStats.price);
     await this.recrutmentRepo.reomveRecrutment(team.id, positionNum);
@@ -51,15 +51,15 @@ class TeamService implements TeamServiceInterface {
     const player = await this.playerService.getPlayerById(playerId);
     const team = await this.teamRepo.getTeamByUserId(userId);
 
-    if (!player) return new NotFoundError("Player");
+    if (!player) return new NotFoundError('Player');
     if (player instanceof NotFoundError) return player;
-    if (!team) return new NotFoundError("Team");
+    if (!team) return new NotFoundError('Team');
 
     const players = team.players;
     const playersSameId = players.find((p) => {
       return p.id === playerId;
     });
-    if (playersSameId) return new BadRequestError("DuplicatePlayer");
+    if (playersSameId) return new BadRequestError('DuplicatePlayer');
 
     const playerSameClub = players.filter((p) => {
       return p.club === player.club;
@@ -70,7 +70,7 @@ class TeamService implements TeamServiceInterface {
     });
 
     if (playerSameClub.length > 3)
-      return new BadRequestError("MoreThanClubLimit");
+      return new BadRequestError('MoreThanClubLimit');
 
     let playerSamePositionPrice = 0;
     if (playerSamePosition)
@@ -78,16 +78,16 @@ class TeamService implements TeamServiceInterface {
 
     const dif = player.playerStats.price - playerSamePositionPrice;
 
-    if (dif > team.credit!) return new BadRequestError("LowCredit");
+    if (dif > team.credit!) return new BadRequestError('LowCredit');
 
-    if (positionNum <= 1 && player.role !== "Goalkeepers")
-      return new BadRequestError("InvalidePosition");
-    if (2 <= positionNum && positionNum <= 6 && player.role !== "Defenders")
-      return new BadRequestError("InvalidePosition");
-    if (7 <= positionNum && positionNum <= 11 && player.role !== "Midfielders")
-      return new BadRequestError("InvalidePosition");
-    if (12 <= positionNum && positionNum <= 14 && player.role !== "Forwards")
-      return new BadRequestError("InvalidePosition");
+    if (positionNum <= 1 && player.role !== 'Goalkeepers')
+      return new BadRequestError('InvalidePosition');
+    if (2 <= positionNum && positionNum <= 6 && player.role !== 'Defenders')
+      return new BadRequestError('InvalidePosition');
+    if (7 <= positionNum && positionNum <= 11 && player.role !== 'Midfielders')
+      return new BadRequestError('InvalidePosition');
+    if (12 <= positionNum && positionNum <= 14 && player.role !== 'Forwards')
+      return new BadRequestError('InvalidePosition');
 
     await this.teamRepo.incrementTeamCredit(team.id, -dif);
     const nimkat = [1, 6, 11, 14];
@@ -110,31 +110,31 @@ class TeamService implements TeamServiceInterface {
     TeamOutputType | null | NotFoundErrorType | BadRequestErrorType
   > => {
     const team = await this.teamRepo.getTeamByUserId(userId);
-    const week = await this.weekService.getCurrentWeek();
+    const week = await this.weekService.getWeek();
 
-    if (!team) return new NotFoundError("Team");
-    if (!week) return new NotFoundError("Week");
+    if (!team) return new NotFoundError('Team');
+    if (!week) return new NotFoundError('Week');
     const players = team.players;
 
-    if (position1 === position2) return new BadRequestError("SamePosition");
+    if (position1 === position2) return new BadRequestError('SamePosition');
 
     const playerPosition1 = players.find((p) => {
       return p.positionNum === position1;
     });
-    if (!playerPosition1) return new NotFoundError("Player");
+    if (!playerPosition1) return new NotFoundError('Player');
 
     const playerPosition2 = players.find((p) => {
       return p.positionNum === position2;
     });
-    if (!playerPosition2) return new NotFoundError("Player");
+    if (!playerPosition2) return new NotFoundError('Player');
 
     if (
       xor(
-        playerPosition1.role === "Goalkeepers",
-        playerPosition2.role === "Goalkeepers"
+        playerPosition1.role === 'Goalkeepers',
+        playerPosition2.role === 'Goalkeepers'
       )
     )
-      return new BadRequestError("DifferentRole");
+      return new BadRequestError('DifferentRole');
     if (playerPosition1.role === playerPosition2.role) {
       await this.recrutmentRepo.replaceRecrutment(
         team.id,
@@ -153,7 +153,7 @@ class TeamService implements TeamServiceInterface {
       this.log(week.id, team.id, playerPosition1, playerPosition2);
     } else {
       if (!xor(playerPosition1.isPlaying, playerPosition2.isPlaying))
-        return new BadRequestError("SameIsPlaying");
+        return new BadRequestError('SameIsPlaying');
 
       await this.recrutmentRepo.replaceRecrutment(
         team.id,
@@ -196,7 +196,7 @@ class TeamService implements TeamServiceInterface {
         newPlayerId: player2.id,
         position: player2.positionNum,
       });
-    else console.log("these are same and we have no log");
+    else console.log('these are same and we have no log');
   };
 
   getTeamRecordes = async (weekId: number, teamId: number) => {

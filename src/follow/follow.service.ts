@@ -1,7 +1,7 @@
-import { DuplicateError } from "../errors/duplicate-error";
-import { NotFoundError } from "../errors/not-found-error";
-import UserDto from "../user/user.dto";
-import FollowDto from "./follow.dto";
+import { DuplicateError } from '../error/duplicate-error';
+import { NotFoundError } from '../error/not-found-error';
+import UserDto from '../user/user.dto';
+import FollowDto from './follow.dto';
 
 class FollowService implements FollowServiceInterface {
   constructor(
@@ -13,16 +13,16 @@ class FollowService implements FollowServiceInterface {
     followerId: FollowerId,
     followingId: FollowingId
   ): Promise<boolean | DuplicateErrorType | NotFoundErrorType> => {
-    if (followerId === followingId) return new DuplicateError("User");
+    if (followerId === followingId) return new DuplicateError('User');
 
     const follower = await this.userService.getUserById(followerId);
-    if (!follower) return new NotFoundError("User");
+    if (!follower) return new NotFoundError('User');
     const following = await this.userService.getUserById(followingId);
-    if (!following) return new NotFoundError("User");
+    if (!following) return new NotFoundError('User');
 
     const followings = await this.followRepo.getFollowings(followerId);
     const f = followings.find((f) => f === followingId);
-    if (f) return new DuplicateError("User");
+    if (f) return new DuplicateError('User');
 
     const follow = await this.followRepo.createFollow(followerId, followingId);
     return !!follow;
@@ -33,20 +33,20 @@ class FollowService implements FollowServiceInterface {
     followingId: number
   ): Promise<boolean | NotFoundErrorType> => {
     const follower = await this.userService.getUserById(followerId);
-    if (!follower) return new NotFoundError("User");
+    if (!follower) return new NotFoundError('User');
     const following = await this.userService.getUserById(followingId);
-    if (!following) return new NotFoundError("User");
+    if (!following) return new NotFoundError('User');
 
     const followings = await this.followRepo.getFollowings(followerId);
     const f = followings.find((f) => f === followingId);
-    if (!f) return new NotFoundError("User");
+    if (!f) return new NotFoundError('User');
 
     const removedNum = await this.followRepo.removeFollow(
       followerId,
       followingId
     );
 
-    if (removedNum > 1) console.log("!!! ---- something bad happend...");
+    if (removedNum > 1) console.log('!!! ---- something bad happend...');
 
     return !!removedNum;
   };

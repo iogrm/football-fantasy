@@ -1,7 +1,7 @@
-import { RequestHandler } from "express";
-import { z } from "zod";
-import { handleError } from "../errors/error-hendler";
-import { HttpError } from "../errors/http-error";
+import { RequestHandler } from 'express';
+import { z } from 'zod';
+import { handleError } from '../error/error-hendler';
+import { HttpError } from '../error/http-error';
 
 export class TeamController implements TeamControllerInterface {
   constructor(private teamService: TeamServiceInterface) {}

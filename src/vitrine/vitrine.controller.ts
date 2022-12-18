@@ -1,8 +1,8 @@
 // import HttpError from "../errors/http-error";
-import { RequestHandler } from "express";
-import { z } from "zod";
-import { handleError } from "../errors/error-hendler";
-import { HttpError } from "../errors/http-error";
+import { RequestHandler } from 'express';
+import { z } from 'zod';
+import { handleError } from '../error/error-hendler';
+import { HttpError } from '../error/http-error';
 
 export class VitrineController implements VitrineControllerInterface {
   constructor(private vitrineService: VitrineServiceInterface) {}
@@ -11,8 +11,8 @@ export class VitrineController implements VitrineControllerInterface {
     try {
       const { userId, weekId } = z
         .object({
-          userId: z.string().regex(/^\d+$/).default("1").transform(Number),
-          weekId: z.string().regex(/^\d+$/).default("1").transform(Number),
+          userId: z.string().regex(/^\d+$/).default('1').transform(Number),
+          weekId: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.query);
       const status = await this.vitrineService.like(req.userId, userId, weekId);
@@ -27,8 +27,8 @@ export class VitrineController implements VitrineControllerInterface {
     try {
       const { userId, weekId } = z
         .object({
-          userId: z.string().regex(/^\d+$/).default("1").transform(Number),
-          weekId: z.string().regex(/^\d+$/).default("1").transform(Number),
+          userId: z.string().regex(/^\d+$/).default('1').transform(Number),
+          weekId: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.query);
       const status = await this.vitrineService.unlike(
@@ -46,9 +46,9 @@ export class VitrineController implements VitrineControllerInterface {
     try {
       const { weekNum, num, page } = z
         .object({
-          weekNum: z.string().regex(/^\d+$/).default("1").transform(Number),
-          num: z.string().regex(/^\d+$/).default("20").transform(Number),
-          page: z.string().regex(/^\d+$/).default("1").transform(Number),
+          weekNum: z.string().regex(/^\d+$/).default('1').transform(Number),
+          num: z.string().regex(/^\d+$/).default('20').transform(Number),
+          page: z.string().regex(/^\d+$/).default('1').transform(Number),
         })
         .parse(req.params);
       const status = await this.vitrineService.getFollowingVitrines({
