@@ -11,7 +11,7 @@ export const weeksDto = (weeks: Array<Event>) => {
 
     const week: CreateWeekInputType = {
       id: id,
-      weekNum: id,
+      number: id,
       endDate: endDate,
       deadlineDate: deadlineDate,
       isCurrent: is_current,

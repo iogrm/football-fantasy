@@ -10,4 +10,6 @@ interface WeekRepositoryInterface {
   getWeekByNumber: (num: number) => Promise<WeekOutputType | NotFoundErrorType>;
 
   getWeekById: (id: number) => Promise<WeekOutputType | NotFoundErrorType>;
+
+  getWeek: (key: WeekCondition) => Promise<WeekOutputType | NotFoundErrorType>;
 }

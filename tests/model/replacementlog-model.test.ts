@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize/types';
-import sequelizeConfig from '../../src/config/sequelize.config';
+import dotenv from "dotenv";
+import { Sequelize } from "sequelize/types";
+import sequelizeConfig from "../../src/repo/sequelize/sequelize.config";
 import Replacement, {
   initReplacementDB,
-} from '../../src/sequelize/model/replacement.model';
+} from "../../src/repo/sequelize/model/replacement.model";
 
 let server: Sequelize | undefined;
 
@@ -13,11 +13,11 @@ let closeTestServer: Function;
 
 let replacementLogModel: ReplacementModelType;
 
-describe('Replacement Log Model Test', () => {
+describe("Replacement Log Model Test", () => {
   beforeAll(async () => {
     dotenv.config();
 
-    const sequelize = await sequelizeConfig('test');
+    const sequelize = await sequelizeConfig("test");
     server = sequelize.server;
     models = sequelize.models;
     configTestServer = async () => server;
@@ -30,7 +30,7 @@ describe('Replacement Log Model Test', () => {
     await Replacement?.destroy({ where: {} });
   });
 
-  test('create in replacement Log Model', async () => {
+  test("create in replacement Log Model", async () => {
     const rec = {
       weekId: 1,
       teamId: 2,

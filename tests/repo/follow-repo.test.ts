@@ -1,9 +1,9 @@
-import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize/types';
-import sequelizeConfig from '../../src/config/sequelize.config';
-import Follow from '../../src/sequelize/model/follow.model';
-import FollowRepository from '../../src/sequelize/repo/follow.repo';
-import UserRepository from '../../src/sequelize/repo/user.repo';
+import dotenv from "dotenv";
+import { Sequelize } from "sequelize/types";
+import sequelizeConfig from "../../src/repo/sequelize/sequelize.config";
+import Follow from "../../src/repo/sequelize/model/follow.model";
+import FollowRepository from "../../src/repo/sequelize/repo/follow.repo";
+import UserRepository from "../../src/repo/sequelize/repo/user.repo";
 
 let server: Sequelize | undefined;
 
@@ -16,49 +16,49 @@ let followRepo: FollowRepositoryInterface;
 
 const atime = new Date();
 const userDefault = {
-  username: 'user1',
-  password: 'pass1',
-  firstname: 'amir',
-  lastname: 'abdol',
-  email: 'amir@abdol.com',
-  country: 'iran',
+  username: "user1",
+  password: "pass1",
+  firstname: "amir",
+  lastname: "abdol",
+  email: "amir@abdol.com",
+  country: "iran",
   birthday: atime,
 };
 const usersInfo = [
   {
-    username: 'user1',
-    password: 'pass1',
-    firstname: 'amir',
-    lastname: 'abdol',
-    email: 'amir@abdol.com',
-    country: 'iran',
+    username: "user1",
+    password: "pass1",
+    firstname: "amir",
+    lastname: "abdol",
+    email: "amir@abdol.com",
+    country: "iran",
     birthday: atime,
   },
   {
-    username: 'user2',
-    password: 'pass2',
-    firstname: 'ali',
-    lastname: 'giti',
-    email: 'ali@git.god',
-    country: 'afghanestan',
+    username: "user2",
+    password: "pass2",
+    firstname: "ali",
+    lastname: "giti",
+    email: "ali@git.god",
+    country: "afghanestan",
     birthday: atime,
   },
   {
-    username: 'user3',
-    password: 'pass3',
-    firstname: 'amin',
-    lastname: 'tspro',
-    email: 'amin@ts.pro',
-    country: 'UK',
+    username: "user3",
+    password: "pass3",
+    firstname: "amin",
+    lastname: "tspro",
+    email: "amin@ts.pro",
+    country: "UK",
     birthday: atime,
   },
 ];
 
-describe('Follow Repo Test', () => {
+describe("Follow Repo Test", () => {
   beforeAll(async () => {
     dotenv.config();
 
-    const sequelize = await sequelizeConfig('test');
+    const sequelize = await sequelizeConfig("test");
     server = sequelize.server;
     models = sequelize.models;
     configTestServer = async () => server;
@@ -76,7 +76,7 @@ describe('Follow Repo Test', () => {
     await Follow?.destroy({ where: {} });
   });
 
-  test('follow a user for first time', async () => {
+  test("follow a user for first time", async () => {
     const follower = await userRepo.getUserByEmail(usersInfo[0].email);
     const following = await userRepo.getUserByEmail(usersInfo[1].email);
 
@@ -87,7 +87,7 @@ describe('Follow Repo Test', () => {
     });
   });
 
-  test('get followers', async () => {
+  test("get followers", async () => {
     const user1 = await userRepo.getUserByEmail(usersInfo[0].email);
     const user2 = await userRepo.getUserByEmail(usersInfo[1].email);
     const user3 = await userRepo.getUserByEmail(usersInfo[2].email);
@@ -105,7 +105,7 @@ describe('Follow Repo Test', () => {
     expect(followers1).toStrictEqual([]);
   });
 
-  test('get followings', async () => {
+  test("get followings", async () => {
     const user1 = await userRepo.getUserByEmail(usersInfo[0].email);
     const user2 = await userRepo.getUserByEmail(usersInfo[1].email);
     const user3 = await userRepo.getUserByEmail(usersInfo[2].email);
@@ -124,7 +124,7 @@ describe('Follow Repo Test', () => {
     expect(followings1).toStrictEqual([]);
   });
 
-  test('unfollow a user', async () => {
+  test("unfollow a user", async () => {
     const user1 = await userRepo.getUserByEmail(usersInfo[0].email);
     const user2 = await userRepo.getUserByEmail(usersInfo[1].email);
     const user3 = await userRepo.getUserByEmail(usersInfo[2].email);

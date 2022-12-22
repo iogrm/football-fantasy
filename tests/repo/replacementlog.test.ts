@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize/types";
-import Replacement from "../../src/sequelize/model/replacement.model";
-import { initRepo } from "../../src/init/repo.init";
-import PlayerService from "../../src/player/player.service";
-import { initDomain } from "../../src/init/domain.init";
+import Replacement from "../../src/repo/sequelize/model/replacement.model";
+import { initRepo } from "../../src/repo/repo.init";
+import PlayerService from "../../src/module/player/player.service";
+import { initModule } from "../../src/module/module.init";
 
 let server: Sequelize | undefined;
 
@@ -147,7 +147,7 @@ describe("Replacement Log Repo Test", () => {
 
     const { sequelize, redis } = await initRepo("test");
     
-    const services  = initDomain(sequelize, redis);
+    const services  = initModule(sequelize, redis);
 
     await expect(configTestServer()).resolves.not.toThrowError();
 

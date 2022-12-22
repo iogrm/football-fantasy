@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
-import { Sequelize } from 'sequelize/types';
-import sequelizeConfig from '../../src/config/sequelize.config';
-import Like from '../../src/sequelize/model/like.model';
-import LikeRepository from '../../src/sequelize/repo/like.repo';
-import UserRepository from '../../src/sequelize/repo/user.repo';
-import WeekRepository from '../../src/sequelize/repo/week.repo';
+import dotenv from "dotenv";
+import { Sequelize } from "sequelize/types";
+import sequelizeConfig from "../../src/repo/sequelize/sequelize.config";
+import Like from "../../src/repo/sequelize/model/like.model";
+import LikeRepository from "../../src/repo/sequelize/repo/like.repo";
+import UserRepository from "../../src/repo/sequelize/repo/user.repo";
+import WeekRepository from "../../src/repo/sequelize/repo/week.repo";
 
 let server: Sequelize | undefined;
 
@@ -19,30 +19,30 @@ let weekRepo: WeekRepositoryInterface;
 const atime = new Date();
 const usersInfo = [
   {
-    username: 'user1',
-    password: 'pass1',
-    firstname: 'amir',
-    lastname: 'abdol',
-    email: 'amir@abdol.com',
-    country: 'iran',
+    username: "user1",
+    password: "pass1",
+    firstname: "amir",
+    lastname: "abdol",
+    email: "amir@abdol.com",
+    country: "iran",
     birthday: atime,
   },
   {
-    username: 'user2',
-    password: 'pass2',
-    firstname: 'ali',
-    lastname: 'giti',
-    email: 'ali@git.god',
-    country: 'afghanestan',
+    username: "user2",
+    password: "pass2",
+    firstname: "ali",
+    lastname: "giti",
+    email: "ali@git.god",
+    country: "afghanestan",
     birthday: atime,
   },
   {
-    username: 'user3',
-    password: 'pass3',
-    firstname: 'amin',
-    lastname: 'tspro',
-    email: 'amin@ts.pro',
-    country: 'UK',
+    username: "user3",
+    password: "pass3",
+    firstname: "amin",
+    lastname: "tspro",
+    email: "amin@ts.pro",
+    country: "UK",
     birthday: atime,
   },
 ];
@@ -77,11 +77,11 @@ const weeks: WeekOutputType[] = [
   },
 ];
 
-describe('Like Repo Test', () => {
+describe("Like Repo Test", () => {
   beforeAll(async () => {
     dotenv.config();
 
-    const sequelize = await sequelizeConfig('test');
+    const sequelize = await sequelizeConfig("test");
     server = sequelize.server;
     models = sequelize.models;
     configTestServer = async () => server;
@@ -101,7 +101,7 @@ describe('Like Repo Test', () => {
     await Like?.destroy({ where: {} });
   });
 
-  test('like a vitrine of a user', async () => {
+  test("like a vitrine of a user", async () => {
     const follower = await userRepo.getUserByEmail(usersInfo[0].email);
     const following = await userRepo.getUserByEmail(usersInfo[1].email);
     const week = weeks[1];
@@ -119,7 +119,7 @@ describe('Like Repo Test', () => {
     });
   });
 
-  test('islike a vitrine of a user', async () => {
+  test("islike a vitrine of a user", async () => {
     const follower = await userRepo.getUserByEmail(usersInfo[0].email);
     const following = await userRepo.getUserByEmail(usersInfo[1].email);
 
@@ -135,7 +135,7 @@ describe('Like Repo Test', () => {
     expect(islike).toStrictEqual(true);
   });
 
-  test('unlike a vitrine of a user', async () => {
+  test("unlike a vitrine of a user", async () => {
     const follower = await userRepo.getUserByEmail(usersInfo[0].email);
     const following = await userRepo.getUserByEmail(usersInfo[1].email);
 

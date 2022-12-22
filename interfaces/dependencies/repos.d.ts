@@ -1,13 +1,13 @@
-import { Repository } from 'typeorm';
-import { PlayerStatus } from '../../src/typeorm/entity/PlayerStatus';
-import { Player } from '../../src/typeorm/entity/Player';
-import { Week } from '../../src/typeorm/entity/Week';
-import { Recrutment } from '../../src/typeorm/entity/Recrutment';
-import { Replacement } from '../../src/typeorm/entity/Replacement';
-import { Team } from '../../src/typeorm/entity/Team';
-import { User } from '../../src/typeorm/entity/User';
-import { Follow } from '../../src/typeorm/entity/Follow';
-import { Like } from '../../src/typeorm/entity/Like';
+import { Repository } from "typeorm";
+import { PlayerStatus } from "../../src/repo/typeorm/entity/PlayerStatus";
+import { Player } from "../../src/repo/typeorm/entity/Player";
+import { Week } from "../../src/repo/typeorm/entity/Week";
+import { Recrutment } from "../../src/repo/typeorm/entity/Recrutment";
+import { Replacement } from "../../src/repo/typeorm/entity/Replacement";
+import { Team } from "../../src/repo/typeorm/entity/Team";
+import { User } from "../../src/repo/typeorm/entity/User";
+import { Follow } from "../../src/repo/typeorm/entity/Follow";
+import { Like } from "../../src/repo/typeorm/entity/Like";
 
 interface AllSequelizeRepositories extends AllRepositories {
   weekRepo: WeekRepositoryInterface;
